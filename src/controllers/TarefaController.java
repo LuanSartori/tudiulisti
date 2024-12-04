@@ -14,16 +14,20 @@ public class TarefaController {
     private TarefaRepository repository;
     private MenuTarefas menu;
 
+    // construtores
+
     public TarefaController() {
         repository = new TarefaRepository();
         menu = new MenuTarefas();
     }
 
+    // métodos
+
     private void inicializar() {
         // Atualizar a tabela com os tarefas existentes
         atualizarTabela();
 
-        // Ações dos botões
+        // Ações dos botões que estão lá na views
         menu.adicionarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,13 +53,17 @@ public class TarefaController {
     }
 
     private void atualizarTabela() {
+        // atualiza os dados da tabela
         List<Tarefa> tarefas = repository.obterTodosTarefas();
         menu.atualizarTabela(tarefas);
     }
 
     private void adicionarTarefa() {
+        // chama a tela do forms
         TarefaForm form = new TarefaForm(menu, "Adicionar Tarefa");
         form.setVisible(true);
+
+        // executado só depois que o usuário responder, pega o resultado
         Tarefa novoTarefa = form.getTarefa();
         if (novoTarefa != null) {
             repository.adicionarTarefa(novoTarefa);
@@ -64,12 +72,15 @@ public class TarefaController {
     }
 
     private void editarTarefa() {
-        int selectedId = menu.getSelectedTarefaId();
+        int selectedId = menu.getSelectedTarefaId(); 
         if (selectedId != -1) {
             Tarefa tarefa = repository.obterTarefaPorId(selectedId);
             if (tarefa != null) {
+                // chama o form de edição
                 TarefaForm form = new TarefaForm(menu, "Editar Tarefa", tarefa);
                 form.setVisible(true);
+
+                // executado só depois que o usuário responder, pega o resultado
                 Tarefa tarefaAtualizado = form.getTarefa();
                 if (tarefaAtualizado != null) {
                     tarefaAtualizado = new Tarefa(
@@ -94,6 +105,7 @@ public class TarefaController {
         int selectedId = menu.getSelectedTarefaId();
         if (selectedId != -1) {
             
+            // caixa de confirmação
             int confirm = JOptionPane.showConfirmDialog(
                 menu,
                 "Tem certeza que deseja deletar este tarefa?",

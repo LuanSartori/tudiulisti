@@ -7,4 +7,4 @@ CREATE TABLE Tarefas(
     descricao VARCHAR(255) NULL,
     prazo DATETIME DEFAULT NULL,
     status TINYINT(1) NOT NULL DEFAULT 0
-)
+);

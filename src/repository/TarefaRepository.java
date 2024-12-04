@@ -18,10 +18,12 @@ public class TarefaRepository {
             PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
 
+            // prepara a query para o banco
             stmt.setString(1, tarefa.getTitulo());
             stmt.setString(2, tarefa.getDescricao());
             stmt.setString(3, tarefa.getPrazo());
 
+            // verifica se deu certo
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {
                 System.out.println("Tarefa adicionado com sucesso!");
@@ -44,6 +46,7 @@ public class TarefaRepository {
             ResultSet rs = stmt.executeQuery(sql)
         ) {
 
+            // passa pelos dados vindos da query
             while (rs.next()) {
                 Tarefa tarefa = new Tarefa(
                     rs.getInt("id"),
@@ -74,9 +77,11 @@ public class TarefaRepository {
             PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
 
+            // prepara e query e a executa
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
+            // se existir, crie um objeto para ser retornado
             if (rs.next()) {
                 tarefa = new Tarefa(
                     rs.getInt("id"),
@@ -105,12 +110,14 @@ public class TarefaRepository {
             PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
 
+            // prepara a query
             stmt.setString(1, tarefa.getTitulo());
             stmt.setString(2, tarefa.getDescricao());
             stmt.setString(3, tarefa.getPrazo());
             stmt.setBoolean(4, tarefa.getStatus());
             stmt.setInt(5, tarefa.getId());
 
+            // verifica se deu certo
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {
                 System.out.println("Tarefa atualizado com sucesso!");
@@ -133,8 +140,10 @@ public class TarefaRepository {
             PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
 
+            // prepara a query
             stmt.setInt(1, id);
 
+            // verifica se deu certo
             int linhasAfetadas = stmt.executeUpdate();
             if (linhasAfetadas > 0) {
                 System.out.println("Tarefa deletado com sucesso!");
